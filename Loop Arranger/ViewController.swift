@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var guide: guideView!
+    @IBOutlet weak var mainGuide: guideView!
     @IBOutlet weak var guideLeft: NSLayoutConstraint!
     @IBOutlet weak var guideWidth: NSLayoutConstraint!
     
@@ -67,15 +67,15 @@ class ViewController: UIViewController {
             
             if !ghostImageIsIntersectingGuide && getIndexOfActiveGuide() == nil {
                 // check for intersection with the guide
-                if CGRectIntersectsRect(ghostImage.frame, guide.frame) {
-                    guide.activate()
+                if CGRectIntersectsRect(ghostImage.frame, mainGuide.frame) {
+                    mainGuide.activate()
                     ghostImageIsIntersectingGuide = true
                 }
             }
             else {
                 // remove highlight if needed
-                if !CGRectIntersectsRect(ghostImage.frame, guide.frame) {
-                    guide.deactivate()
+                if !CGRectIntersectsRect(ghostImage.frame, mainGuide.frame) {
+                    mainGuide.deactivate()
                     ghostImageIsIntersectingGuide = false
                 }
             }
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         case .Ended:
             // drop in place if needed
             if ghostImageIsIntersectingGuide {
-                ghostImage.center = guide.center
+                ghostImage.center = mainGuide.center
                 ghostImage.alpha = 1
                 
                 segmentsInTrack.append(ghostImage)
@@ -92,8 +92,8 @@ class ViewController: UIViewController {
                     addGuideBeforeSegmentAtIndex(segmentsInTrack.count - 1)
                 }
                 
-                guideLeft.constant += guide.frame.width + 8
-                guide.deactivate()
+                guideLeft.constant += mainGuide.frame.width + 8
+                mainGuide.deactivate()
                 
             }
             else {

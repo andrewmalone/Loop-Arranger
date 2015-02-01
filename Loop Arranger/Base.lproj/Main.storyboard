@@ -141,9 +141,9 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="guide" destination="ANG-Q8-cpR" id="8bh-Ey-aYn"/>
                         <outlet property="guideLeft" destination="0S5-03-RTL" id="GLy-jt-l9x"/>
                         <outlet property="guideWidth" destination="Aug-FX-DN0" id="cSp-7H-949"/>
+                        <outlet property="mainGuide" destination="ANG-Q8-cpR" id="oym-bx-8am"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
