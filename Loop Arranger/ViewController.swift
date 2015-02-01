@@ -56,28 +56,28 @@ class ViewController: UIViewController {
         case .Changed:
             ghostImage.center = center
             
-            if !ghostImageIsIntersectingGuide {
+            for (index, rect) in enumerate(guideRects) {
+                if CGRectContainsPoint(rect, currentPoint) {
+                    guides[index].activate()
+                }
+                else {
+                    guides[index].deactivate()
+                }
+            }
+            
+            if !ghostImageIsIntersectingGuide && getIndexOfActiveGuide() == nil {
                 // check for intersection with the guide
                 if CGRectIntersectsRect(ghostImage.frame, guide.frame) {
-                    guide.backgroundColor = UIColor.blueColor()
+                    guide.activate()
                     ghostImageIsIntersectingGuide = true
                 }
             }
             else {
                 // remove highlight if needed
                 if !CGRectIntersectsRect(ghostImage.frame, guide.frame) {
-                    guide.backgroundColor = UIColor.purpleColor()
+                    guide.deactivate()
                     ghostImageIsIntersectingGuide = false
                 }
-            }
-            
-            for (index, rect) in enumerate(guideRects) {
-                if CGRectContainsPoint(rect, currentPoint) {
-                    guides[index].backgroundColor = UIColor.blueColor()
-                }
-                
-                // TODO! Remove highlight when leaving hit zones
-                // Refactor state of guide active/inactive
             }
             
         case .Ended:
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
                         y: CGRectGetMinY(ghostImage.frame),
                         width: 4,
                         height: ghostImage.frame.height))
-                    newGuide.backgroundColor = UIColor.purpleColor()
+
                     view.addSubview(newGuide)
                     guides.append(newGuide)
                     
@@ -110,8 +110,7 @@ class ViewController: UIViewController {
                 }
                 
                 guideLeft.constant += guide.frame.width + 8
-                guide.backgroundColor = UIColor.purpleColor()
-                
+                guide.deactivate()
                 
             }
             else {
@@ -122,6 +121,16 @@ class ViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func getIndexOfActiveGuide() -> Int? {
+        for (index, guide) in enumerate(guides) {
+            if guide.isActive {
+                return index
+            }
+        }
+        
+        return nil
     }
 }
 
