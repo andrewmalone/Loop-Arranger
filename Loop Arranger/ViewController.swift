@@ -123,6 +123,27 @@ class ViewController: UIViewController {
         }
     }
     
+    @IBAction func reset() {
+        // reset the track back to initial state...
+        
+        // remove guides, segments, and hit tracking rects
+        for guide in guides {
+            guide.removeFromSuperview()
+        }
+        guides = []
+        
+        for segment in segmentsInTrack {
+            segment.removeFromSuperview()
+        }
+        segmentsInTrack = []
+        
+        guideRects = []
+        
+        // reset the main guide position
+        guideLeft.constant = 0
+        
+    }
+    
     func getIndexOfActiveGuide() -> Int? {
         for (index, guide) in enumerate(guides) {
             if guide.isActive {
