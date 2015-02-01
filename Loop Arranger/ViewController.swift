@@ -89,24 +89,7 @@ class ViewController: UIViewController {
                 segmentsInTrack.append(ghostImage)
                 
                 if segmentsInTrack.count > 1 {
-                    var newGuide = guideView(frame: CGRect(
-                        x: CGRectGetMinX(ghostImage.frame) - 6,
-                        y: CGRectGetMinY(ghostImage.frame),
-                        width: 4,
-                        height: ghostImage.frame.height))
-
-                    view.addSubview(newGuide)
-                    guides.append(newGuide)
-                    
-                    let rect1 = segmentsInTrack[segmentsInTrack.count - 2]
-                    let rect2 = segmentsInTrack[segmentsInTrack.count - 1]
-                    let guide = CGRect(
-                        x: rect1.center.x,
-                        y: CGRectGetMinY(rect1.frame),
-                        width: rect2.center.x - rect1.center.x,
-                        height: rect1.frame.height)
-                    
-                    guideRects.append(guide)
+                    addGuideBeforeSegmentAtIndex(segmentsInTrack.count - 1)
                 }
                 
                 guideLeft.constant += guide.frame.width + 8
@@ -152,6 +135,42 @@ class ViewController: UIViewController {
         }
         
         return nil
+    }
+    
+    func addSegmentToEndOfTrack() {
+        
+    }
+    
+    func addSegmentBeforeIndex(index:Int) {
+    
+    }
+    
+    func addGuideBeforeSegmentAtIndex(index:Int) {
+        let rect1 = segmentsInTrack[index - 1] // segment before the new guide
+        let rect2 = segmentsInTrack[index] // segment after the new guide
+        
+        var newGuide = guideView(frame: CGRect(
+            x: CGRectGetMinX(rect2.frame) - 6,
+            y: CGRectGetMinY(rect2.frame),
+            width: 4,
+            height: rect2.frame.height))
+        
+        view.addSubview(newGuide)
+        guides.append(newGuide)
+        
+        let guide = CGRect(
+            x: rect1.center.x,
+            y: CGRectGetMinY(rect1.frame),
+            width: rect2.center.x - rect1.center.x,
+            height: rect1.frame.height)
+        
+        // draw the hit rectangle
+//        var gv = UIView(frame: guide)
+//        gv.layer.borderColor = UIColor.blueColor().CGColor
+//        gv.layer.borderWidth = 1
+//        view.addSubview(gv)
+        
+        guideRects.append(guide)
     }
 }
 
