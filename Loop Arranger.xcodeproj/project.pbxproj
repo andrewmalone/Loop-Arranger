@@ -13,6 +13,8 @@
 		24D37B891A7E5583003AD98F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 24D37B881A7E5583003AD98F /* Images.xcassets */; };
 		24D37B8C1A7E5583003AD98F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 24D37B8A1A7E5583003AD98F /* LaunchScreen.xib */; };
 		24D37B981A7E5583003AD98F /* Loop_ArrangerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D37B971A7E5583003AD98F /* Loop_ArrangerTests.swift */; };
+		24D37BA21A7E5648003AD98F /* segmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D37BA11A7E5648003AD98F /* segmentView.swift */; };
+		24D37BA41A7E565D003AD98F /* guideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D37BA31A7E565D003AD98F /* guideView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		24D37B911A7E5583003AD98F /* Loop ArrangerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Loop ArrangerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D37B961A7E5583003AD98F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24D37B971A7E5583003AD98F /* Loop_ArrangerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop_ArrangerTests.swift; sourceTree = "<group>"; };
+		24D37BA11A7E5648003AD98F /* segmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = segmentView.swift; path = ../segmentView.swift; sourceTree = "<group>"; };
+		24D37BA31A7E565D003AD98F /* guideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = guideView.swift; path = ../guideView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +81,10 @@
 		24D37B7E1A7E5583003AD98F /* Loop Arranger */ = {
 			isa = PBXGroup;
 			children = (
-				24D37B811A7E5583003AD98F /* AppDelegate.swift */,
+				24D37BA31A7E565D003AD98F /* guideView.swift */,
+				24D37BA11A7E5648003AD98F /* segmentView.swift */,
 				24D37B831A7E5583003AD98F /* ViewController.swift */,
 				24D37B851A7E5583003AD98F /* Main.storyboard */,
-				24D37B881A7E5583003AD98F /* Images.xcassets */,
-				24D37B8A1A7E5583003AD98F /* LaunchScreen.xib */,
 				24D37B7F1A7E5583003AD98F /* Supporting Files */,
 			);
 			path = "Loop Arranger";
@@ -90,6 +93,9 @@
 		24D37B7F1A7E5583003AD98F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24D37B881A7E5583003AD98F /* Images.xcassets */,
+				24D37B8A1A7E5583003AD98F /* LaunchScreen.xib */,
+				24D37B811A7E5583003AD98F /* AppDelegate.swift */,
 				24D37B801A7E5583003AD98F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -214,6 +220,8 @@
 			files = (
 				24D37B841A7E5583003AD98F /* ViewController.swift in Sources */,
 				24D37B821A7E5583003AD98F /* AppDelegate.swift in Sources */,
+				24D37BA21A7E5648003AD98F /* segmentView.swift in Sources */,
+				24D37BA41A7E565D003AD98F /* guideView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
