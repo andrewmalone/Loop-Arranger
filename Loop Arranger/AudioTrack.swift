@@ -9,9 +9,9 @@
 import AVFoundation
 
 class AudioTrack {
-    var segments = Array<AudioSegment>()
-    var currentPlayingSegment: Int!
-    var player: AVAudioPlayerNode!
+    private var segments = Array<AudioSegment>()
+    private var currentPlayingSegment: Int!
+    private var player: AVAudioPlayerNode!
     
     init(player: AVAudioPlayerNode) {
         self.player = player
@@ -23,11 +23,11 @@ class AudioTrack {
         scheduleSegment(segments[currentPlayingSegment])
     }
     
-    func scheduleSegment(segment:AudioSegment) {
+    private func scheduleSegment(segment:AudioSegment) {
         player.scheduleSegment(segment.audioFile, startingFrame: segment.startFrame, frameCount: segment.frameCount, atTime: nil, completionHandler: scheduleNext)
     }
     
-    func scheduleNext() {
+    private func scheduleNext() {
         if currentPlayingSegment == segments.count - 1 {
             // don't do anything for now
             return
