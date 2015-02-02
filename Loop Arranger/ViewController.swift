@@ -26,12 +26,11 @@ class ViewController: UIViewController {
     
     // properties for audio stuff
     // for now - going with just one player node for the whole thing
-    var engine = AVAudioEngine()
-    var player = AVAudioPlayerNode()
+    var engine:AVAudioEngine!
+    var player:AVAudioPlayerNode!
     var audioFile:AVAudioFile!
     var track:AudioTrack!
 
-    
     // audio segment views (hard coded for now)
     @IBOutlet weak var segment1: segmentView!
     @IBOutlet weak var segment1_1: segmentView!
@@ -59,10 +58,7 @@ class ViewController: UIViewController {
     
     func initAudio() {
         // set up the audio engine
-        engine.attachNode(player)
-        var mixer = engine.mainMixerNode
-        engine.connect(player, to: mixer, format: mixer.outputFormatForBus(0))
-        engine.startAndReturnError(nil)
+        destroyAndCreateEngineAndPlayer()
         
         track = AudioTrack(player: player)
         
@@ -77,6 +73,22 @@ class ViewController: UIViewController {
         segment1_1_2.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.25, lengthPercentage: 0.25)
         segment1_2_1.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.5, lengthPercentage: 0.25)
         segment1_2_2.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.75, lengthPercentage: 0.25)
+    }
+    
+    func destroyAndCreateEngineAndPlayer() {
+        // there seems to be a problem with AVAudioPlayerNode.stop()
+        // It's supposed to clear all scheduled events, but isn't
+        // so I'm re-initializing the engine and player instead
+        engine = nil
+        player = nil
+        engine = AVAudioEngine()
+        player = AVAudioPlayerNode()
+        var mixer = engine.mainMixerNode
+        engine.attachNode(player)
+        engine.connect(player, to: mixer, format:mixer.inputFormatForBus(0))
+        engine.startAndReturnError(nil)
+        
+        track?.player = player
     }
     
     func handlePan(sender: UIPanGestureRecognizer) {
@@ -134,6 +146,7 @@ class ViewController: UIViewController {
             }
             else if let index = getIndexOfActiveGuide() {
                 addSegmentBeforeSegmentAtIndex(index + 1)
+                track.insertSegment(triggerView.audioSegment, atIndex: index + 1)
                 guides[index].deactivate()
             }
             else {
@@ -158,6 +171,11 @@ class ViewController: UIViewController {
         track.play()
     }
     
+    @IBAction func stop() {
+        track.stop()
+        destroyAndCreateEngineAndPlayer()
+    }
+    
     @IBAction func reset() {
         // reset the track back to initial state...
         
@@ -177,6 +195,8 @@ class ViewController: UIViewController {
         
         // reset the main guide position
         guideLeft.constant = 0
+        
+        track.reset()
         
     }
     
