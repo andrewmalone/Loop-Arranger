@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     var guides = Array<guideView>()
     var segmentsInTrack = Array<UIImageView>()
     var guideRects = Array<CGRect>()
+    var guideHits = Array<UIView>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,18 +84,11 @@ class ViewController: UIViewController {
         case .Ended:
             // drop in place if needed
             if ghostImageIsIntersectingGuide {
-                ghostImage.center = mainGuide.center
-                ghostImage.alpha = 1
-                
-                segmentsInTrack.append(ghostImage)
-                
-                if segmentsInTrack.count > 1 {
-                    addGuideBeforeSegmentAtIndex(segmentsInTrack.count - 1)
-                }
-                
-                guideLeft.constant += mainGuide.frame.width + 8
-                mainGuide.deactivate()
-                
+                addSegmentToEndOfTrack()
+            }
+            else if let index = getIndexOfActiveGuide() {
+                addSegmentBeforeSegmentAtIndex(index + 1)
+                guides[index].deactivate()
             }
             else {
                 ghostImage.removeFromSuperview()
@@ -121,6 +115,7 @@ class ViewController: UIViewController {
         segmentsInTrack = []
         
         guideRects = []
+        drawGuideRects()
         
         // reset the main guide position
         guideLeft.constant = 0
@@ -133,16 +128,55 @@ class ViewController: UIViewController {
                 return index
             }
         }
-        
         return nil
     }
     
     func addSegmentToEndOfTrack() {
+        ghostImage.center = mainGuide.center
+        ghostImage.alpha = 1
         
+        segmentsInTrack.append(ghostImage)
+        
+        if segmentsInTrack.count > 1 {
+            addGuideBeforeSegmentAtIndex(segmentsInTrack.count - 1)
+        }
+        
+        guideLeft.constant += mainGuide.frame.width + 8
+        mainGuide.deactivate()
     }
     
-    func addSegmentBeforeIndex(index:Int) {
-    
+    func addSegmentBeforeSegmentAtIndex(index:Int) {
+        // position the ghost image
+        ghostImage.center.x = segmentsInTrack[index].center.x - (segmentsInTrack[index].bounds.width/2) + (ghostImage.bounds.width/2)
+        ghostImage.center.y = mainGuide.center.y
+        ghostImage.alpha = 1
+        
+        
+        let offset = ghostImage.bounds.width + 8
+        
+        // move everything over...
+        for i in index..<segmentsInTrack.count {
+            // move the segments
+            segmentsInTrack[i].center.x += offset
+            
+            if i != segmentsInTrack.count - 1 {
+                //move the guides
+                guides[i].center.x += offset
+                guideRects[i] = CGRectOffset(guideRects[i], offset, 0)
+            }
+        }
+        guideLeft.constant += offset
+        // adjust the guideRect before the inserted segment
+        let r = guideRects[index - 1]
+        guideRects[index - 1] = CGRectMake(
+            CGRectGetMinX(r),
+            CGRectGetMinY(r),
+            ghostImage.center.x - segmentsInTrack[index - 1].center.x,
+            r.height)
+        
+        segmentsInTrack.insert(ghostImage, atIndex: index)
+        
+        addGuideBeforeSegmentAtIndex(index + 1)
     }
     
     func addGuideBeforeSegmentAtIndex(index:Int) {
@@ -156,7 +190,7 @@ class ViewController: UIViewController {
             height: rect2.frame.height))
         
         view.addSubview(newGuide)
-        guides.append(newGuide)
+        guides.insert(newGuide, atIndex: index - 1)
         
         let guide = CGRect(
             x: rect1.center.x,
@@ -164,13 +198,27 @@ class ViewController: UIViewController {
             width: rect2.center.x - rect1.center.x,
             height: rect1.frame.height)
         
-        // draw the hit rectangle
-//        var gv = UIView(frame: guide)
-//        gv.layer.borderColor = UIColor.blueColor().CGColor
-//        gv.layer.borderWidth = 1
-//        view.addSubview(gv)
+        guideRects.insert(guide, atIndex: index - 1)
+        // drawGuideRects()
+    }
+    
+    func drawGuideRects() {
+        // for debugging
         
-        guideRects.append(guide)
+        // clear the rects
+        for rect in guideHits {
+            rect.removeFromSuperview()
+        }
+        guideHits = []
+        
+        // draw the rects
+        for rect in guideRects {
+            var gv = UIView(frame: rect)
+            gv.layer.borderColor = UIColor.blueColor().CGColor
+            gv.layer.borderWidth = 1
+            view.addSubview(gv)
+            guideHits.append(gv)
+        }
     }
 }
 

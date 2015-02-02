@@ -12,7 +12,7 @@ class guideView: UIView {
 
     var isActive = false
     let activeColor = UIColor.redColor()
-    let inactiveColor = UIColor.blueColor()
+    let inactiveColor = UIColor.whiteColor()
     
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
