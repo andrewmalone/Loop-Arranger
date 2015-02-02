@@ -42,8 +42,8 @@
 		24D37B911A7E5583003AD98F /* Loop ArrangerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Loop ArrangerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		24D37B961A7E5583003AD98F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		24D37B971A7E5583003AD98F /* Loop_ArrangerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop_ArrangerTests.swift; sourceTree = "<group>"; };
-		24D37BA11A7E5648003AD98F /* segmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = segmentView.swift; path = ../segmentView.swift; sourceTree = "<group>"; };
-		24D37BA31A7E565D003AD98F /* guideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = guideView.swift; path = ../guideView.swift; sourceTree = "<group>"; };
+		24D37BA11A7E5648003AD98F /* segmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = segmentView.swift; sourceTree = "<group>"; };
+		24D37BA31A7E565D003AD98F /* guideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guideView.swift; sourceTree = "<group>"; };
 		24D37BA51A7FAAB7003AD98F /* loop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = loop.aiff; sourceTree = "<group>"; };
 		24D37BA71A7FB7CA003AD98F /* AudioSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSegment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
