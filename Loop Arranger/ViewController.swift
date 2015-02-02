@@ -160,11 +160,13 @@ class ViewController: UIViewController {
     }
     
     func handleTap(sender: UITapGestureRecognizer) {
-        let tappedView = sender.view! as segmentView
-        let segmentToPlay = tappedView.audioSegment
-        
-        player.scheduleSegment(segmentToPlay.audioFile, startingFrame: segmentToPlay.startFrame, frameCount: segmentToPlay.frameCount, atTime: nil, completionHandler: nil)
-        player.play()
+        if !track.playing {
+            let tappedView = sender.view! as segmentView
+            let segmentToPlay = tappedView.audioSegment
+            
+            player.scheduleSegment(segmentToPlay.audioFile, startingFrame: segmentToPlay.startFrame, frameCount: segmentToPlay.frameCount, atTime: nil, completionHandler: nil)
+            player.play()
+        }
     }
     
     @IBAction func play() {
@@ -197,6 +199,7 @@ class ViewController: UIViewController {
         guideLeft.constant = 0
         
         track.reset()
+        destroyAndCreateEngineAndPlayer()
         
     }
     

@@ -12,6 +12,7 @@ class AudioTrack {
     private var segments = Array<AudioSegment>()
     private var currentPlayingSegment: Int!
     var player: AVAudioPlayerNode!
+    var playing = false
     
     init(player: AVAudioPlayerNode) {
         self.player = player
@@ -23,11 +24,13 @@ class AudioTrack {
             currentPlayingSegment = 0
             scheduleSegment(segments[currentPlayingSegment])
         }
+        playing = true
     }
     
     func stop() {
         player.stop()
         currentPlayingSegment = nil
+        playing = false
     }
     
     func reset() {
@@ -35,7 +38,8 @@ class AudioTrack {
             player.stop()
         }
         segments = []
-        currentPlayingSegment = 0
+        currentPlayingSegment = nil
+        playing = false
     }
     
     private func scheduleSegment(segment:AudioSegment) {
