@@ -29,6 +29,8 @@ class ViewController: UIViewController {
     var engine = AVAudioEngine()
     var player = AVAudioPlayerNode()
     var audioFile:AVAudioFile!
+    var track:AudioTrack!
+
     
     // audio segment views (hard coded for now)
     @IBOutlet weak var segment1: segmentView!
@@ -61,6 +63,8 @@ class ViewController: UIViewController {
         var mixer = engine.mainMixerNode
         engine.connect(player, to: mixer, format: mixer.outputFormatForBus(0))
         engine.startAndReturnError(nil)
+        
+        track = AudioTrack(player: player)
         
         // set up the audio file
         let url = NSBundle.mainBundle().URLForResource("loop", withExtension: "aiff")
@@ -126,6 +130,7 @@ class ViewController: UIViewController {
             // drop in place if needed
             if ghostImageIsIntersectingGuide {
                 addSegmentToEndOfTrack()
+                track.addSegment(triggerView.audioSegment)
             }
             else if let index = getIndexOfActiveGuide() {
                 addSegmentBeforeSegmentAtIndex(index + 1)
@@ -147,6 +152,10 @@ class ViewController: UIViewController {
         
         player.scheduleSegment(segmentToPlay.audioFile, startingFrame: segmentToPlay.startFrame, frameCount: segmentToPlay.frameCount, atTime: nil, completionHandler: nil)
         player.play()
+    }
+    
+    @IBAction func play() {
+        track.play()
     }
     
     @IBAction func reset() {
@@ -269,5 +278,6 @@ class ViewController: UIViewController {
             guideHits.append(gv)
         }
     }
+    
 }
 
