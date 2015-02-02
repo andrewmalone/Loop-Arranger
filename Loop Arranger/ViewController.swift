@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var ghostImageIsIntersectingGuide = false
     
     var guides = Array<guideView>()
-    var segmentsInTrack = Array<UIImageView>()
+    var segmentViewsInTrack = Array<UIImageView>()
     var guideRects = Array<CGRect>()
     var guideHits = Array<UIView>()
     
@@ -158,10 +158,10 @@ class ViewController: UIViewController {
         }
         guides = []
         
-        for segment in segmentsInTrack {
+        for segment in segmentViewsInTrack {
             segment.removeFromSuperview()
         }
-        segmentsInTrack = []
+        segmentViewsInTrack = []
         
         guideRects = []
         drawGuideRects()
@@ -184,10 +184,10 @@ class ViewController: UIViewController {
         ghostImage.center = mainGuide.center
         ghostImage.alpha = 1
         
-        segmentsInTrack.append(ghostImage)
+        segmentViewsInTrack.append(ghostImage)
         
-        if segmentsInTrack.count > 1 {
-            addGuideBeforeSegmentAtIndex(segmentsInTrack.count - 1)
+        if segmentViewsInTrack.count > 1 {
+            addGuideBeforeSegmentAtIndex(segmentViewsInTrack.count - 1)
         }
         
         guideLeft.constant += mainGuide.frame.width + 8
@@ -196,7 +196,7 @@ class ViewController: UIViewController {
     
     func addSegmentBeforeSegmentAtIndex(index:Int) {
         // position the ghost image
-        ghostImage.center.x = segmentsInTrack[index].center.x - (segmentsInTrack[index].bounds.width/2) + (ghostImage.bounds.width/2)
+        ghostImage.center.x = segmentViewsInTrack[index].center.x - (segmentViewsInTrack[index].bounds.width/2) + (ghostImage.bounds.width/2)
         ghostImage.center.y = mainGuide.center.y
         ghostImage.alpha = 1
         
@@ -204,11 +204,11 @@ class ViewController: UIViewController {
         let offset = ghostImage.bounds.width + 8
         
         // move everything over...
-        for i in index..<segmentsInTrack.count {
+        for i in index..<segmentViewsInTrack.count {
             // move the segments
-            segmentsInTrack[i].center.x += offset
+            segmentViewsInTrack[i].center.x += offset
             
-            if i != segmentsInTrack.count - 1 {
+            if i != segmentViewsInTrack.count - 1 {
                 //move the guides
                 guides[i].center.x += offset
                 guideRects[i] = CGRectOffset(guideRects[i], offset, 0)
@@ -220,17 +220,17 @@ class ViewController: UIViewController {
         guideRects[index - 1] = CGRectMake(
             CGRectGetMinX(r),
             CGRectGetMinY(r),
-            ghostImage.center.x - segmentsInTrack[index - 1].center.x,
+            ghostImage.center.x - segmentViewsInTrack[index - 1].center.x,
             r.height)
         
-        segmentsInTrack.insert(ghostImage, atIndex: index)
+        segmentViewsInTrack.insert(ghostImage, atIndex: index)
         
         addGuideBeforeSegmentAtIndex(index + 1)
     }
     
     func addGuideBeforeSegmentAtIndex(index:Int) {
-        let rect1 = segmentsInTrack[index - 1] // segment before the new guide
-        let rect2 = segmentsInTrack[index] // segment after the new guide
+        let rect1 = segmentViewsInTrack[index - 1] // segment before the new guide
+        let rect2 = segmentViewsInTrack[index] // segment after the new guide
         
         var newGuide = guideView(frame: CGRect(
             x: CGRectGetMinX(rect2.frame) - 6,
