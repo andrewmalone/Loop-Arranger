@@ -10,6 +10,8 @@ import UIKit
 
 class segmentView: UIView {
 
+    var audioSegment: AudioSegment!
+    
     func makeGhost() -> UIImageView {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()

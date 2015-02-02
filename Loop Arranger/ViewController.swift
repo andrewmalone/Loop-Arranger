@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     
+    // properties for UI stuff
     @IBOutlet weak var mainGuide: guideView!
     @IBOutlet weak var guideLeft: NSLayoutConstraint!
     @IBOutlet weak var guideWidth: NSLayoutConstraint!
@@ -22,16 +24,55 @@ class ViewController: UIViewController {
     var guideRects = Array<CGRect>()
     var guideHits = Array<UIView>()
     
+    // properties for audio stuff
+    // for now - going with just one player node for the whole thing
+    var engine = AVAudioEngine()
+    var player = AVAudioPlayerNode()
+    var audioFile:AVAudioFile!
+    
+    // audio segment views (hard coded for now)
+    @IBOutlet weak var segment1: segmentView!
+    @IBOutlet weak var segment1_1: segmentView!
+    @IBOutlet weak var segment1_2: segmentView!
+    @IBOutlet weak var segment1_1_1: segmentView!
+    @IBOutlet weak var segment1_1_2: segmentView!
+    @IBOutlet weak var segment1_2_1: segmentView!
+    @IBOutlet weak var segment1_2_2: segmentView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // add gesture recognizers
+        // add gesture recognizers to the segmentViews
         let filteredViews = view.subviews.filter({ $0.isKindOfClass(segmentView) } )
         for subView in filteredViews {
-            let recognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
-            subView.addGestureRecognizer(recognizer)
+            let panRecognizer = UIPanGestureRecognizer(target: self, action: Selector("handlePan:"))
+            subView.addGestureRecognizer(panRecognizer)
+            
+            let tapRecognizer = UITapGestureRecognizer(target: self, action: Selector("handleTap:"))
+            subView.addGestureRecognizer(tapRecognizer)
         }
         
+        initAudio()
+    }
+    
+    func initAudio() {
+        // set up the audio engine
+        engine.attachNode(player)
+        var mixer = engine.mainMixerNode
+        engine.connect(player, to: mixer, format: mixer.outputFormatForBus(0))
+        engine.startAndReturnError(nil)
+        
+        // set up the audio file
+        let url = NSBundle.mainBundle().URLForResource("loop", withExtension: "aiff")
+        audioFile = AVAudioFile(forReading: url, error: nil)
+        
+        segment1.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.0, lengthPercentage: 1.0)
+        segment1_1.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.0, lengthPercentage: 0.5)
+        segment1_2.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.5, lengthPercentage: 0.5)
+        segment1_1_1.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.0, lengthPercentage: 0.25)
+        segment1_1_2.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.25, lengthPercentage: 0.25)
+        segment1_2_1.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.5, lengthPercentage: 0.25)
+        segment1_2_2.audioSegment = AudioSegment(file: audioFile, startPercentage: 0.75, lengthPercentage: 0.25)
     }
     
     func handlePan(sender: UIPanGestureRecognizer) {
@@ -98,6 +139,14 @@ class ViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    func handleTap(sender: UITapGestureRecognizer) {
+        let tappedView = sender.view! as segmentView
+        let segmentToPlay = tappedView.audioSegment
+        
+        player.scheduleSegment(segmentToPlay.audioFile, startingFrame: segmentToPlay.startFrame, frameCount: segmentToPlay.frameCount, atTime: nil, completionHandler: nil)
+        player.play()
     }
     
     @IBAction func reset() {
@@ -203,7 +252,7 @@ class ViewController: UIViewController {
     }
     
     func drawGuideRects() {
-        // for debugging
+        // this func for debugging
         
         // clear the rects
         for rect in guideHits {

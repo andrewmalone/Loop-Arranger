@@ -144,6 +144,13 @@
                         <outlet property="guideLeft" destination="0S5-03-RTL" id="GLy-jt-l9x"/>
                         <outlet property="guideWidth" destination="Aug-FX-DN0" id="cSp-7H-949"/>
                         <outlet property="mainGuide" destination="ANG-Q8-cpR" id="oym-bx-8am"/>
+                        <outlet property="segment1" destination="93N-bB-MVT" id="TIJ-ku-yTG"/>
+                        <outlet property="segment1_1" destination="xlt-qC-j9O" id="0Tu-oM-CNq"/>
+                        <outlet property="segment1_1_1" destination="iYi-2O-xLC" id="WgP-G7-rSk"/>
+                        <outlet property="segment1_1_2" destination="btU-px-2al" id="bRm-Ty-hjf"/>
+                        <outlet property="segment1_2" destination="APE-Fn-AId" id="oAh-OF-hgj"/>
+                        <outlet property="segment1_2_1" destination="A9U-KQ-chG" id="V5g-Rc-jGd"/>
+                        <outlet property="segment1_2_2" destination="W30-WW-HlD" id="N0I-Dc-Hy2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

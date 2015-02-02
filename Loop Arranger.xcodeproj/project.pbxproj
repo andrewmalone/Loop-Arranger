@@ -15,6 +15,8 @@
 		24D37B981A7E5583003AD98F /* Loop_ArrangerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D37B971A7E5583003AD98F /* Loop_ArrangerTests.swift */; };
 		24D37BA21A7E5648003AD98F /* segmentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D37BA11A7E5648003AD98F /* segmentView.swift */; };
 		24D37BA41A7E565D003AD98F /* guideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D37BA31A7E565D003AD98F /* guideView.swift */; };
+		24D37BA61A7FAAB7003AD98F /* loop.aiff in Resources */ = {isa = PBXBuildFile; fileRef = 24D37BA51A7FAAB7003AD98F /* loop.aiff */; };
+		24D37BA81A7FB7CA003AD98F /* AudioSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24D37BA71A7FB7CA003AD98F /* AudioSegment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 		24D37B971A7E5583003AD98F /* Loop_ArrangerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loop_ArrangerTests.swift; sourceTree = "<group>"; };
 		24D37BA11A7E5648003AD98F /* segmentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = segmentView.swift; path = ../segmentView.swift; sourceTree = "<group>"; };
 		24D37BA31A7E565D003AD98F /* guideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = guideView.swift; path = ../guideView.swift; sourceTree = "<group>"; };
+		24D37BA51A7FAAB7003AD98F /* loop.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = loop.aiff; sourceTree = "<group>"; };
+		24D37BA71A7FB7CA003AD98F /* AudioSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioSegment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +88,7 @@
 				24D37BA31A7E565D003AD98F /* guideView.swift */,
 				24D37BA11A7E5648003AD98F /* segmentView.swift */,
 				24D37B831A7E5583003AD98F /* ViewController.swift */,
+				24D37BA71A7FB7CA003AD98F /* AudioSegment.swift */,
 				24D37B851A7E5583003AD98F /* Main.storyboard */,
 				24D37B7F1A7E5583003AD98F /* Supporting Files */,
 			);
@@ -93,6 +98,7 @@
 		24D37B7F1A7E5583003AD98F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				24D37BA51A7FAAB7003AD98F /* loop.aiff */,
 				24D37B881A7E5583003AD98F /* Images.xcassets */,
 				24D37B8A1A7E5583003AD98F /* LaunchScreen.xib */,
 				24D37B811A7E5583003AD98F /* AppDelegate.swift */,
@@ -201,6 +207,7 @@
 				24D37B871A7E5583003AD98F /* Main.storyboard in Resources */,
 				24D37B8C1A7E5583003AD98F /* LaunchScreen.xib in Resources */,
 				24D37B891A7E5583003AD98F /* Images.xcassets in Resources */,
+				24D37BA61A7FAAB7003AD98F /* loop.aiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,6 +227,7 @@
 			files = (
 				24D37B841A7E5583003AD98F /* ViewController.swift in Sources */,
 				24D37B821A7E5583003AD98F /* AppDelegate.swift in Sources */,
+				24D37BA81A7FB7CA003AD98F /* AudioSegment.swift in Sources */,
 				24D37BA21A7E5648003AD98F /* segmentView.swift in Sources */,
 				24D37BA41A7E565D003AD98F /* guideView.swift in Sources */,
 			);
